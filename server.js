@@ -16,10 +16,22 @@ const server = app.listen(PORT, () => {
 // WebSocket server for signaling
 const wss = new WebSocket.Server({ server });
 
-const peers = new Map(); // peerId -> WebSocket
+const peers = new Map(); // peerId -> { ws: WebSocket, lastPing: timestamp }
+
+// Heartbeat interval to keep connections alive
+const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+const CONNECTION_TIMEOUT = 60000; // 60 seconds
 
 wss.on('connection', (ws) => {
   let peerId = null;
+  ws.isAlive = true;
+
+  ws.on('pong', () => {
+    ws.isAlive = true;
+    if (peerId && peers.has(peerId)) {
+      peers.get(peerId).lastPing = Date.now();
+    }
+  });
 
   ws.on('message', (message) => {
     try {
@@ -28,7 +40,7 @@ wss.on('connection', (ws) => {
       switch (data.type) {
         case 'register':
           peerId = data.peerId;
-          peers.set(peerId, ws);
+          peers.set(peerId, { ws, lastPing: Date.now() });
           console.log(`✅ Peer registered: ${peerId} (Total: ${peers.size})`);
 
           // Send list of existing peers
@@ -41,13 +53,21 @@ wss.on('connection', (ws) => {
 
         case 'signal':
           // Forward signaling messages between peers
-          const targetWs = peers.get(data.targetPeerId);
-          if (targetWs && targetWs.readyState === WebSocket.OPEN) {
-            targetWs.send(JSON.stringify({
+          const targetPeer = peers.get(data.targetPeerId);
+          if (targetPeer && targetPeer.ws.readyState === WebSocket.OPEN) {
+            targetPeer.ws.send(JSON.stringify({
               type: 'signal',
               fromPeerId: peerId,
               signal: data.signal
             }));
+          }
+          break;
+
+        case 'ping':
+          // Client ping
+          ws.send(JSON.stringify({ type: 'pong' }));
+          if (peerId && peers.has(peerId)) {
+            peers.get(peerId).lastPing = Date.now();
           }
           break;
 
@@ -72,11 +92,27 @@ wss.on('connection', (ws) => {
   });
 });
 
+// Heartbeat to keep connections alive
+const heartbeat = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if (ws.isAlive === false) {
+      return ws.terminate();
+    }
+    ws.isAlive = false;
+    ws.ping();
+  });
+}, HEARTBEAT_INTERVAL);
+
 function broadcast(message, excludePeerId = null) {
   const messageStr = JSON.stringify(message);
-  peers.forEach((ws, peerId) => {
-    if (peerId !== excludePeerId && ws.readyState === WebSocket.OPEN) {
-      ws.send(messageStr);
+  peers.forEach((peer, peerId) => {
+    if (peerId !== excludePeerId && peer.ws.readyState === WebSocket.OPEN) {
+      peer.ws.send(messageStr);
     }
   });
 }
+
+// Cleanup on server shutdown
+wss.on('close', () => {
+  clearInterval(heartbeat);
+});

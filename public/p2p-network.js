@@ -33,6 +33,10 @@ class P2PNetwork {
           type: 'register',
           peerId: this.peerId
         }));
+
+        // Start client-side heartbeat
+        this.startHeartbeat();
+
         resolve();
       };
 
@@ -45,6 +49,22 @@ class P2PNetwork {
         await this.handleSignalingMessage(data);
       };
     });
+  }
+
+  startHeartbeat() {
+    // Send ping every 25 seconds to keep connection alive
+    this.heartbeatInterval = setInterval(() => {
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify({ type: 'ping' }));
+      }
+    }, 25000);
+  }
+
+  stopHeartbeat() {
+    if (this.heartbeatInterval) {
+      clearInterval(this.heartbeatInterval);
+      this.heartbeatInterval = null;
+    }
   }
 
   async handleSignalingMessage(data) {
@@ -258,6 +278,9 @@ class P2PNetwork {
   }
 
   disconnect() {
+    // Stop heartbeat
+    this.stopHeartbeat();
+
     // Close all peer connections
     this.peers.forEach(pc => pc.close());
     this.peers.clear();
