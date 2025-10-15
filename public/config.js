@@ -3,7 +3,7 @@ const CONFIG = {
   // WebSocket signaling server URL
   // IMPORTANT: Set this to your deployed signaling server URL
   // Example: 'wss://hivemind-signaling.railway.app' or 'wss://hivemind-signaling.onrender.com'
-  PRODUCTION_SIGNALING_SERVER: null, // Change this to your signaling server URL
+  PRODUCTION_SIGNALING_SERVER: 'wss://hivemind-production-3f6e.up.railway.app', // Change this to your signaling server URL
 
   getSignalingUrl: () => {
     // Check if running locally
