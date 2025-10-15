@@ -79,6 +79,19 @@ Matrix multiplication and activation functions run entirely on the GPU for maxim
 - Chrome/Edge 113+
 - Experimental WebGPU flag may need to be enabled in some browsers
 
+## Deployment
+
+### Quick Deploy to Netlify
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Duathphoenix98/hivemind)
+
+### Full Stack Deployment
+For complete functionality including WebSocket signaling, deploy to:
+- **Railway** (recommended, free tier)
+- **Render** (free tier available)
+- **Heroku** (paid)
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
 ## License
 
 MIT

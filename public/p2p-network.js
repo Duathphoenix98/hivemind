@@ -22,8 +22,9 @@ class P2PNetwork {
 
   async connect() {
     return new Promise((resolve, reject) => {
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}`;
+      // Use config to get signaling server URL
+      const wsUrl = window.CONFIG ? CONFIG.getSignalingUrl() :
+        `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}`;
 
       this.ws = new WebSocket(wsUrl);
 
