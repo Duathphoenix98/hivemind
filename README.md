@@ -81,14 +81,21 @@ Matrix multiplication and activation functions run entirely on the GPU for maxim
 
 ## Deployment
 
-### Quick Deploy to Netlify
+### ⚡ Quick Deploy to Netlify (Recommended)
+
+**Important**: Netlify doesn't support WebSockets. You need to deploy the signaling server separately (free options available).
+
+📖 **[Read QUICK_START.md for step-by-step instructions](./QUICK_START.md)**
+
+**TL;DR:**
+1. Deploy signaling server to Railway/Render (free, takes 2 minutes)
+2. Update `PRODUCTION_SIGNALING_SERVER` in `public/config.js` with your signaling URL
+3. Deploy to Netlify
+
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Duathphoenix98/hivemind)
 
-### Full Stack Deployment
-For complete functionality including WebSocket signaling, deploy to:
-- **Railway** (recommended, free tier)
-- **Render** (free tier available)
-- **Heroku** (paid)
+### 🚀 Alternative: Full Stack Deploy (Easier)
+Deploy everything together to Railway/Render - no configuration needed!
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
