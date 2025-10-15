@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hivemind - P2P Neural Network Swarm</title>
+  <title>Hivemind - DePIN AI Compute Network</title>
   <link rel="icon" type="image/png" href="hivemind_logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +16,7 @@
         <img src="hivemind_logo.png" alt="Hivemind" class="logo">
         <div class="header-text">
           <h1>Hivemind</h1>
-          <p>Distributed Neural Network Inference via P2P WebGPU</p>
+          <p>Decentralized Physical Infrastructure Network for AI Compute on BSC</p>
         </div>
       </div>
     </header>
@@ -31,11 +31,11 @@
               <span id="webgpu-status" class="status-value status-checking">Checking...</span>
             </div>
             <div class="status-item">
-              <span class="status-label">Peer ID</span>
+              <span class="status-label">Node ID</span>
               <span id="peer-id" class="status-value">-</span>
             </div>
             <div class="status-item">
-              <span class="status-label">Connected Peers</span>
+              <span class="status-label">Network Nodes</span>
               <span id="peer-count" class="status-value status-highlight">0</span>
             </div>
             <div class="status-item">
@@ -58,43 +58,43 @@
           <div class="control-buttons">
             <button id="connect-btn" class="btn btn-primary btn-large">
               <span class="btn-icon">🔌</span>
-              <span>Join Swarm</span>
+              <span>Join Network</span>
             </button>
             <button id="disconnect-btn" class="btn btn-danger btn-large" disabled>
               <span class="btn-icon">🔴</span>
-              <span>Leave Swarm</span>
+              <span>Leave Network</span>
             </button>
           </div>
           <div class="control-buttons">
             <button id="run-task-btn" class="btn btn-success" disabled>
               <span class="btn-icon">🧠</span>
-              <span>Run Neural Network Inference</span>
+              <span>Run AI Inference Task</span>
             </button>
           </div>
         </div>
 
         <div class="card info-card">
           <h3>ℹ️ About</h3>
-          <p>Hivemind connects browsers in a peer-to-peer network to share GPU compute power for neural network inference tasks.</p>
+          <p>Hivemind is a Decentralized Physical Infrastructure Network (DePIN) built on Binance Smart Chain, enabling distributed AI compute using browser-based GPU resources.</p>
           <p><strong>How it works:</strong></p>
           <ul>
-            <li>Each browser contributes GPU compute via WebGPU</li>
-            <li>Neural network inference tasks are distributed across the swarm</li>
-            <li>Results are aggregated in real-time</li>
-            <li>All communication is P2P (no centralized compute)</li>
+            <li>Contributors share GPU compute power via WebGPU</li>
+            <li>AI inference tasks are distributed across the DePIN network</li>
+            <li>Compute providers earn rewards on BSC</li>
+            <li>Fully decentralized infrastructure with no central servers</li>
           </ul>
-          <p class="tip">💡 Open this page in multiple tabs or devices to form a swarm!</p>
+          <p class="tip">💡 Join the network to contribute compute and earn rewards on Binance Smart Chain!</p>
         </div>
       </div>
 
       <div class="right-panel">
         <div class="card peers-card">
-          <h3>🌐 Swarm Nodes</h3>
+          <h3>🌐 Network Nodes</h3>
           <div id="peers-list" class="peers-list">
             <div class="empty-state">
               <div class="empty-icon">🔍</div>
-              <p>No peers connected</p>
-              <p class="empty-hint">Join the swarm to discover peers</p>
+              <p>No nodes connected</p>
+              <p class="empty-hint">Join the network to discover nodes</p>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
               <span id="gpu-utilization" class="stat-value">0%</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Swarm Efficiency</span>
+              <span class="stat-label">Network Efficiency</span>
               <span id="swarm-efficiency" class="stat-value">-</span>
             </div>
           </div>

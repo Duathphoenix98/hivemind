@@ -61,7 +61,7 @@ class HivemindApp {
 
   async connectToSwarm() {
     try {
-      this.log('Connecting to swarm...', 'info');
+      this.log('Connecting to DePIN network...', 'info');
       document.getElementById('connect-btn').disabled = true;
 
       await this.network.connect();
@@ -71,7 +71,7 @@ class HivemindApp {
       document.getElementById('run-task-btn').disabled = false;
       document.getElementById('compute-status').textContent = 'Online';
 
-      this.log('Successfully joined the swarm', 'success');
+      this.log('Successfully joined the network', 'success');
     } catch (error) {
       this.log(`Failed to connect: ${error.message}`, 'error');
       document.getElementById('connect-btn').disabled = false;
@@ -88,16 +88,16 @@ class HivemindApp {
     document.getElementById('compute-status').textContent = 'Offline';
 
     this.updatePeersList();
-    this.log('Disconnected from swarm', 'info');
+    this.log('Disconnected from network', 'info');
   }
 
   handlePeerConnected(peerId) {
-    this.log(`Peer connected: ${peerId}`, 'success');
+    this.log(`Node connected: ${peerId}`, 'success');
     this.updatePeersList();
   }
 
   handlePeerDisconnected(peerId) {
-    this.log(`Peer disconnected: ${peerId}`, 'warning');
+    this.log(`Node disconnected: ${peerId}`, 'warning');
     this.updatePeersList();
   }
 
@@ -134,7 +134,7 @@ class HivemindApp {
 
   async runDemoTask() {
     if (!this.connected) {
-      this.log('Not connected to swarm', 'error');
+      this.log('Not connected to network', 'error');
       return;
     }
 
@@ -142,7 +142,7 @@ class HivemindApp {
 
     if (connectedPeers.length === 0) {
       // No peers, run locally
-      this.log('No peers available, running inference locally...', 'info');
+      this.log('No network nodes available, running inference locally...', 'info');
       document.getElementById('compute-status').textContent = 'Computing...';
 
       const startTime = performance.now();
@@ -162,7 +162,7 @@ class HivemindApp {
       this.log(`Prediction: Class ${result.prediction} (confidence: ${(result.output[result.prediction] * 100).toFixed(1)}%)`, 'info');
     } else {
       // Distribute to peers
-      this.log(`Distributing task to ${connectedPeers.length} peer(s)...`, 'info');
+      this.log(`Distributing task to ${connectedPeers.length} network node(s)...`, 'info');
 
       // Create task data
       const input = Array.from({ length: 10 }, () => Math.random());
@@ -193,8 +193,8 @@ class HivemindApp {
       peersListEl.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">🔍</div>
-          <p>No peers connected</p>
-          <p class="empty-hint">Waiting for peers to join...</p>
+          <p>No nodes connected</p>
+          <p class="empty-hint">Waiting for nodes to join...</p>
         </div>
       `;
     } else {
