@@ -74,16 +74,16 @@ header {
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
+  width: 240px;
+  height: 240px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
 }
 
 @media (max-width: 768px) {
   .logo {
-    width: 64px;
-    height: 64px;
+    width: 192px;
+    height: 192px;
   }
 }
 
