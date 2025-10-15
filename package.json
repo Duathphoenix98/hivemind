@@ -1,0 +1,17 @@
+{
+  "name": "hivemind",
+  "version": "1.0.0",
+  "description": "P2P WebGPU swarm for distributed neural network inference",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["webgpu", "p2p", "webrtc", "ai", "distributed", "neural-network"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2",
+    "express": "^4.18.2"
+  }
+}
