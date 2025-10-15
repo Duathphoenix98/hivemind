@@ -1,5 +1,5 @@
 // Configuration for different deployment environments
-const CONFIG = {
+window.CONFIG = {
   // WebSocket signaling server URL
   // IMPORTANT: Set this to your deployed signaling server URL
   // Example: 'wss://hivemind-signaling.railway.app' or 'wss://hivemind-signaling.onrender.com'
@@ -12,8 +12,8 @@ const CONFIG = {
     }
 
     // Use the production signaling server if configured
-    if (CONFIG.PRODUCTION_SIGNALING_SERVER) {
-      return CONFIG.PRODUCTION_SIGNALING_SERVER;
+    if (window.CONFIG.PRODUCTION_SIGNALING_SERVER) {
+      return window.CONFIG.PRODUCTION_SIGNALING_SERVER;
     }
 
     // Check for environment variable (set in Netlify UI)
